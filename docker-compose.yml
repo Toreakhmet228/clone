@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+      - ./db.sqlite3:/app/db.sqlite3
+    environment:
+      - DEBUG=False
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  static_volume:
+  media_volume:

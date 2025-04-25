@@ -1,0 +1,16 @@
+apiVersion: app/v1
+kind: Deployment
+metada:
+  name: django-appp
+
+sepc:
+  replicas: 2
+  selector:
+    matchLabel:
+      app: myapp
+
+  template:
+    metadata:
+      labels:
+        app: ./app
+        
