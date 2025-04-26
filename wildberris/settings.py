@@ -16,8 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-#3_p!12^*w$xnvel2pn7*t7ciy
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 # Разрешенные хосты
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'freelance.com.kz', 'www.freelance.com.kz']
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'freelance.com.kz', 'www.freelance.com.kz', '*']
 # Установленные приложения
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -78,11 +77,15 @@ SIMPLE_JWT = {
 
 # CORS настройки
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',  # Angular dev server
+    'http://localhost',  # Фронтенд на порту 80
+    'http://freelance.com.kz',
+    'http://www.freelance.com.kz',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:4200',  # Для CSRF-запросов от Angular
+    'http://localhost',
+    'http://freelance.com.kz',
+    'http://www.freelance.com.kz',
 ]
 
 # Настройки Stripe (рекомендуется хранить в .env)
@@ -148,14 +151,12 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Статические файлы
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = '/app/staticfiles'  # Соответствует volume
 
-# Медиа-файлы
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = '/app/media'  # Соответствует volume
 
 # Тип первичного ключа по умолчанию
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
